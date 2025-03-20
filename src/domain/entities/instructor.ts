@@ -4,4 +4,9 @@ interface IntructorProps {
   name: string;
 }
 
-export class Instructor extends Entity<IntructorProps> {}
+export class Instructor extends Entity<IntructorProps> {
+  get name() {
+    return this.props.name;
+  }
+
+}
