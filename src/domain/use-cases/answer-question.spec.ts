@@ -3,11 +3,11 @@ import { AnsweRepository } from '../repositories/answer-repository'
 import { Answer } from '../entities/answer'
 
 describe('AnswerQuestionUseCase', () => {
-
   const fakeAnswersRepository: AnsweRepository = {
     create: async (answer: Answer) => {
+      console.log(answer)
       return Promise.resolve()
-    }
+    },
   }
 
   test('create an answer', async () => {
@@ -16,7 +16,7 @@ describe('AnswerQuestionUseCase', () => {
     const answer = await answerQuestion.execute({
       instructorId: '1',
       questionId: '1',
-      content: 'Nova resposta'
+      content: 'Nova resposta',
     })
 
     expect(answer.content).toEqual('Nova resposta')
