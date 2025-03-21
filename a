@@ -1,0 +1,17 @@
+[34m4d2c498[31m (HEAD -> main) [37mchore: config paths alias and vite globals - [36mrafaelsilva, [32m39 seconds ago
+[34md02a503[31m [37mfeat: create entities get and seters - [36mrafaelsilva, [32m24 hours ago
+[34ma405c80[31m [37mfeat: abstraction entities creations - [36mrafaelsilva, [32m24 hours ago
+[34mf57e461[31m [37mfeat: map properties - [36mrafaelsilva, [32m24 hours ago
+[34ma5570f2[31m [37mfeat: create class Unique Entity Id - [36mrafaelsilva, [32m24 hours ago
+[34mf80a933[31m [37mfeat: create entity base class - [36mrafaelsilva, [32m24 hours ago
+[34maf95e91[31m [37mfeat: creat slug value object - [36mrafaelsilva, [32m2 days ago
+[34m402dcfa[31m [37mfeat: create Answers repositorie - [36mrafaelsilva, [32m2 days ago
+[34m76ffc65[31m [37mtest: create an answer - [36mrafaelsilva, [32m3 days ago
+[34mea0b968[31m [37mfeat: create Answer Question Use Case - [36mrafaelsilva, [32m3 days ago
+[34mdd949fd[31m [37mfeat: Create Answer, Intructor, Question and Student Entities - [36mrafaelsilva, [32m3 days ago
+[34mf222ac1[31m [37mchore: npm i vitest -D - [36mrafaelsilva, [32m3 days ago
+[34mc7ae36c[31m [37mrefact: update readme - [36mrafaelsilva, [32m3 days ago
+[34mccd9c65[31m [37mchore: npx tsc --init - [36mrafaelsilva, [32m3 days ago
+[34me6e436b[31m [37mchore: npm i typescript @types/node -D - [36mrafaelsilva, [32m3 days ago
+[34m0bb518a[31m [37mchore: npm init -y - [36mrafaelsilva, [32m3 days ago
+[34md3da4a6[31m [37mchore: git init - [36mrafaelsilva, [32m3 days ago
