@@ -34,3 +34,23 @@ Um repositório em arquitetura limpa é um componente que separa a lógica de ac
 
 Propriedades de uma entidade que tem regras de negocios relacionadas a estas entidades.
 
+
+# Clean Architecture
+A Clean Architecture é uma abordagem amplamente utilizada por desenvolvedores para garantir que seus sistemas sejam escaláveis, testáveis e fáceis de manter.
+
+https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+
+![alt text](./assets/clean_arch.png)
+
+## Frameworks & Drivers
+  Interação externa.
+
+## Interface Adapters
+  Adaptar a informação que vem da camada azul. Proteje as camadas inferiores da camada mais externa (Azul)
+
+## Aplication Business Rules
+  Casos de uso
+
+## Enterprise Business Rules
+  Entidades
+
