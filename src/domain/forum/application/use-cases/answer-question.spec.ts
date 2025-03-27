@@ -1,6 +1,6 @@
 import { AnswerQuestionUseCase } from './answer-question'
 import { AnsweRepository } from '../repositories/answer-repository'
-import { Answer } from '../entities/answer'
+import { Answer } from '../../enterprise/entities/answer'
 
 describe('AnswerQuestionUseCase', () => {
   const fakeAnswersRepository: AnsweRepository = {
