@@ -1,6 +1,6 @@
 import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 import { Answer } from '../../enterprise/entities/answer'
-import { AnsweRepository } from '../repositories/answer-repository'
+import { AnswerRepository } from '../repositories/answer-repository'
 
 interface AnswerQuestionUseCaseRequest {
   instructorId: string
@@ -8,14 +8,18 @@ interface AnswerQuestionUseCaseRequest {
   content: string
 }
 
+interface AnswerQuestionUseCaseResponse {
+  answer: Answer
+}
+
 export class AnswerQuestionUseCase {
-  constructor(private answerRepository: AnsweRepository) {}
+  constructor(private answerRepository: AnswerRepository) {}
 
   async execute({
     instructorId,
     questionId,
     content,
-  }: AnswerQuestionUseCaseRequest) {
+  }: AnswerQuestionUseCaseRequest): Promise<AnswerQuestionUseCaseResponse> {
     const answer = Answer.create({
       content,
       authorId: new UniqueEntityId(instructorId),
@@ -24,6 +28,8 @@ export class AnswerQuestionUseCase {
 
     await this.answerRepository.create(answer)
 
-    return answer
+    return {
+      answer,
+    }
   }
 }

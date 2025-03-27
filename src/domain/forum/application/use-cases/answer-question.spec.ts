@@ -1,24 +1,27 @@
 import { AnswerQuestionUseCase } from './answer-question'
-import { AnsweRepository } from '../repositories/answer-repository'
-import { Answer } from '../../enterprise/entities/answer'
+import { InMemoryAnswerRepository } from 'test/repositories/in-memory_answe-repository'
+
+let inMemoryAnswerepository: InMemoryAnswerRepository
+let sut: AnswerQuestionUseCase
 
 describe('AnswerQuestionUseCase', () => {
-  const fakeAnswersRepository: AnsweRepository = {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    create: async (answer: Answer) => {
-      return Promise.resolve()
-    },
-  }
+  beforeEach(() => {
+    inMemoryAnswerepository = new InMemoryAnswerRepository()
+    sut = new AnswerQuestionUseCase(inMemoryAnswerepository)
+  })
 
-  test('create an answer', async () => {
-    const answerQuestion = new AnswerQuestionUseCase(fakeAnswersRepository)
-
-    const answer = await answerQuestion.execute({
+  test('should be able create an answer', async () => {
+    const { answer } = await sut.execute({
       instructorId: '1',
       questionId: '1',
-      content: 'Nova resposta',
+      content: 'Conteúdo da resposta',
     })
 
-    expect(answer.content).toEqual('Nova resposta')
+    expect(answer.id).toBeTruthy()
+    expect(inMemoryAnswerepository.items[0].id).toEqual(answer.id)
+    expect(inMemoryAnswerepository.items[0].content).toEqual(answer.content)
+    expect(inMemoryAnswerepository.items[0].questionId).toEqual(
+      answer.questionId,
+    )
   })
 })
