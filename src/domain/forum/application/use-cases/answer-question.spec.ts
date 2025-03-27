@@ -4,8 +4,8 @@ import { Answer } from '../../enterprise/entities/answer'
 
 describe('AnswerQuestionUseCase', () => {
   const fakeAnswersRepository: AnsweRepository = {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     create: async (answer: Answer) => {
-      console.log(answer)
       return Promise.resolve()
     },
   }
