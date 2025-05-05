@@ -38,15 +38,15 @@ export class InMemoryQuestionRepository implements QuestionRepository {
     }
   }
 
-  // async save(question: Question) {
-  //   const questionIndex = this.items.findIndex(
-  //     (item) => item.id.toString() === question.id.toString(),
-  //   )
+  async save(question: Question) {
+    const questionIndex = this.items.findIndex(
+      (item) => item.id.toString() === question.id.toString(),
+    )
 
-  //   if (questionIndex >= 0) {
-  //     this.items[questionIndex] = question
-  //   } else {
-  //     this.items.push(question)
-  //   }
-  // }
+    if (questionIndex >= 0) {
+      this.items[questionIndex] = question
+    } else {
+      this.items.push(question)
+    }
+  }
 }
