@@ -36,12 +36,12 @@ describe('Delete Answer', () => {
 
     await inMemoryAnswersRepository.create(newAnswer)
 
-    await expect(() => {
-      return sut.execute({
+    await expect(
+      sut.execute({
         answerId: 'answer-1',
         authorId: 'author-2',
       })
-    }).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(Error)
     expect(inMemoryAnswersRepository.items).toHaveLength(1)
   })
 })

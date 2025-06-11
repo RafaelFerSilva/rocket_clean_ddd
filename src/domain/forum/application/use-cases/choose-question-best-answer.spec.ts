@@ -41,11 +41,11 @@ describe('Choose question best answer', () => {
     await inMemoryQuestionRepository.create(question)
     await inMemoryAnswersRepository.create(answer)
 
-    expect(() => {
-      return sut.execute({
+    await expect(
+      sut.execute({
         answerId: answer.id.toString(),
         authorId: 'author-2',
       })
-    }).rejects.toBeInstanceOf(Error)
+    ).rejects.toBeInstanceOf(Error)
   })
 })
