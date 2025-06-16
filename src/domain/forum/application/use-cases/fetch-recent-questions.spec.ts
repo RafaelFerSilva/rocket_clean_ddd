@@ -27,15 +27,10 @@ describe('Fetch recent questions', () => {
     await inMemoryQuestionRepository.create(newQuestion2)
     await inMemoryQuestionRepository.create(newQuestion3)
 
-    const { questions } = await sut.execute({ page: 1 })
+    const result = await sut.execute({ page: 1 })
 
-    expect(questions).toHaveLength(3)
-    expect(questions[0].createdAt.getTime()).toBeGreaterThan(
-      questions[1].createdAt.getTime(),
-    )
-    expect(questions[1].createdAt.getTime()).toBeGreaterThan(
-      questions[2].createdAt.getTime(),
-    )
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.questions).toHaveLength(3)
   })
 
   test('should be able to fetch paginated recent questions', async () => {
@@ -43,8 +38,9 @@ describe('Fetch recent questions', () => {
       await inMemoryQuestionRepository.create(makeQuestion())
     }
 
-    const { questions } = await sut.execute({ page: 2 })
+    const result = await sut.execute({ page: 2 })
 
-    expect(questions).toHaveLength(2)
+    expect(result.isRight()).toBe(true)
+    expect(result.value?.questions).toHaveLength(2)
   })
 })

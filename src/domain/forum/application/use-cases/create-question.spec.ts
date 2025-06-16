@@ -11,27 +11,28 @@ describe('Create Question', () => {
   })
 
   test('should be able create a question', async () => {
-    const { question } = await sut.execute({
+   const result = await sut.execute({
       authorId: '1',
       title: 'Nova pergunta',
       content: 'Conteúdo da pergunta',
     })
 
-    expect(question.id).toBeTruthy()
-    expect(inMemoryQuestionRepository.items[0].id).toEqual(question.id)
-    expect(inMemoryQuestionRepository.items[0].title).toEqual(question.title)
+    expect(result.isRight()).toBe(true)
+    expect(inMemoryQuestionRepository.items[0].id).toEqual(result.value?.question.id)
+    expect(inMemoryQuestionRepository.items[0].id).toEqual(result.value?.question.id)
+    expect(inMemoryQuestionRepository.items[0].title).toEqual(result.value?.question.title)
     expect(inMemoryQuestionRepository.items[0].content).toEqual(
-      question.content,
+      result.value?.question.content,
     )
     expect(inMemoryQuestionRepository.items[0].authorId).toEqual(
-      question.authorId,
+      result.value?.question.authorId,
     )
-    expect(inMemoryQuestionRepository.items[0].slug).toEqual(question.slug)
+    expect(inMemoryQuestionRepository.items[0].slug).toEqual(result.value?.question.slug)
     expect(inMemoryQuestionRepository.items[0].createdAt).toEqual(
-      question.createdAt,
+      result.value?.question.createdAt,
     )
     expect(inMemoryQuestionRepository.items[0].updatedAt).toEqual(
-      question.updatedAt,
+      result.value?.question.updatedAt,
     )
   })
 })

@@ -21,12 +21,13 @@ describe('Choose answer best answer', () => {
     const answer = makeAnswer()
     await inMemoryAnswerRepository.create(answer)
 
-    await sut.execute({
+    const result = await sut.execute({
       answerId: answer.id.toString(),
       authorId: answer.authorId.toString(),
       content: "Comentário de teste"
     })
 
+    expect(result.isRight()).toBe(true)
     expect(inMemoryAnswerCommentRepository.items[0].content).toEqual("Comentário de teste")
   })
 })
