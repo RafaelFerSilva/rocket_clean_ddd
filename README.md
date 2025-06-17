@@ -55,3 +55,17 @@ https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
   Entidades
 
 ---
+
+# Aggregates
+Agregados são grupos de objetos de domínio (Entidades) que podem ser tratados como uma única unidade, garantindo consistência e impondo invariantes dentro do limite. "Entidades e sub-entidades".
+
+## Exemplo
+- Order -> OrderItem[]
+- Customer -> Address[]
+
+---
+
+# WatchedList
+- WatchedList é um padrão usado para gerenciar uma coleção de itens, garantindo consistência e aplicando regras específicas ao adicionar, remover ou atualizar itens dentro da lista.
+- São listas de objetos que são monitorados conforme ocorrem alterações nos objetos agregados. 
+- Quando editar um agregado podemos também editar seus elementos internos, garantindo consistência no estado do agregado.
