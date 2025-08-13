@@ -3,12 +3,17 @@ import { Question } from '../../enterprise/entities/question'
 import { QuestionRepository } from '../repositories/questions-repository'
 import { ResourceNotFoundError } from './erros/recource-not-found-error'
 import { NotAllowedError } from './erros/not-allowed-error'
+import { QuestionAttachmentsRepository } from '../repositories/question-attachments-repository'
+import { QuestionAttachmentsList } from '../../enterprise/entities/question-attachments-list'
+import { QuestionAttachment } from '../../enterprise/entities/question-attachment'
+import { UniqueEntityId } from '@/core/entities/unique-entity-id'
 
 interface EditQuestionUseCaseRequest {
   authorId: string
   questionId: string
   title: string
   content: string
+  attachmentsIds: string[]
 }
 
 type EditQuestionUseCaseResponse = Either<ResourceNotFoundError | NotAllowedError, {
@@ -16,15 +21,20 @@ type EditQuestionUseCaseResponse = Either<ResourceNotFoundError | NotAllowedErro
 }>
 
 export class EditQuestionUseCase {
-  constructor(private questionRepository: QuestionRepository) {}
+  constructor(
+    private questionRepository: QuestionRepository,
+    private questionAttachmentsRepository: QuestionAttachmentsRepository
+  ) { }
 
   async execute({
     authorId,
     questionId,
     title,
     content,
+    attachmentsIds
   }: EditQuestionUseCaseRequest): Promise<EditQuestionUseCaseResponse> {
     const question = await this.questionRepository.findById(questionId)
+
     if (!question) {
       return left(new ResourceNotFoundError())
     }
@@ -33,8 +43,23 @@ export class EditQuestionUseCase {
       return left(new NotAllowedError())
     }
 
+    const currentQuestionAttachments = await this.questionAttachmentsRepository.findManyByQuestionId(questionId)
+    const questionAttachmentsList = new QuestionAttachmentsList(currentQuestionAttachments)
+
+    const questionAttachments= attachmentsIds.map(attachmentId => {
+      return QuestionAttachment.create({
+        attachmentId: new UniqueEntityId(attachmentId),
+        questionid: question.id
+      })
+    })
+
+    questionAttachmentsList.update(questionAttachments)
+
+
+
     question.title = title?.trim() || question.title
     question.content = content?.trim() || question.content
+    question.attachments = questionAttachmentsList
 
     await this.questionRepository.save(question)
 
