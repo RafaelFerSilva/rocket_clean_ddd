@@ -69,3 +69,26 @@ Agregados são grupos de objetos de domínio (Entidades) que podem ser tratados 
 - WatchedList é um padrão usado para gerenciar uma coleção de itens, garantindo consistência e aplicando regras específicas ao adicionar, remover ou atualizar itens dentro da lista.
 - São listas de objetos que são monitorados conforme ocorrem alterações nos objetos agregados. 
 - Quando editar um agregado podemos também editar seus elementos internos, garantindo consistência no estado do agregado.
+
+# Subdomínios
+
+- Core: O que dá dinheiro.
+  - Compra
+  - Catálogo
+  - Pagamento
+  - Entrega
+  - Faturamento
+
+- Supporting: Da suporte para que o core funcionar
+  - Estoque
+  - Atendimento
+  - Marketing
+
+- Generic: Você precisa deles mas não são tão importantes
+  - Relatórios
+  - Logs
+  - Notificações
+  - Auditoria
+  - Monitoramento
+  - Backup
+  - Configurações
