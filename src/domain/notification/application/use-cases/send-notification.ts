@@ -3,22 +3,26 @@ import { Either, right } from '@/core/either'
 import { Notification } from '../../enterprise/entities/notification'
 import { NotificationsRepository } from '../repositories/notifications-repository'
 
-
-interface SendNotificationUseCaseRequest {
+export interface SendNotificationUseCaseRequest {
   recipientId: string
   title: string
   content: string
 }
 
-type SendNotificationUseCaseResponse = Either<null, { notification: Notification }>
+export type SendNotificationUseCaseResponse = Either<
+  null,
+  {
+    notification: Notification
+  }
+>
 
 export class SendNotificationUseCase {
-  constructor(private notificationRepository: NotificationsRepository) {}
+  constructor(private notificationsRepository: NotificationsRepository) {}
 
   async execute({
     recipientId,
     title,
-    content
+    content,
   }: SendNotificationUseCaseRequest): Promise<SendNotificationUseCaseResponse> {
     const notification = Notification.create({
       recipientId: new UniqueEntityId(recipientId),
@@ -26,8 +30,10 @@ export class SendNotificationUseCase {
       content,
     })
 
-    await this.notificationRepository.create(notification)
+    await this.notificationsRepository.create(notification)
 
-    return right({ notification })
+    return right({
+      notification,
+    })
   }
 }

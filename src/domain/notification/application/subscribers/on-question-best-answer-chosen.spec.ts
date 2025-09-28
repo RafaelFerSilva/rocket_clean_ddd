@@ -1,5 +1,4 @@
 import { makeAnswer } from "test/factories/make-answer";
-import { OnAnswerCreated } from "./on-answer-created";
 import { InMemoryAnswersRepository } from "test/repositories/in-memory-answers-repository";
 import { InMemoryAnswerAttachmentsRepository } from "test/repositories/in-memory-answer-attachments-repository";
 import { InMemoryQuestionRepository } from "test/repositories/in-memory-question-repository";
@@ -14,6 +13,7 @@ import { makeQuestion } from "test/factories/make-question";
 import { MockInstance } from "vitest";
 import { waitFor } from "test/utils/wait-for";
 import { InMemoryNotificationRepository } from "test/repositories/in-memory-notifications-repository";
+import { OnQuestionBestAnswerChosen } from "./on-question-best-answer-chosen";
 
 let inMemoryQuestionAttachmentsRepository: InMemoryQuestionAttachmentsRepository;
 let inMemoryQuestionsRepository: InMemoryQuestionRepository;
@@ -28,7 +28,7 @@ let sendNotificationExecuteSpy: MockInstance<
   ) => Promise<SendNotificationUseCaseResponse>
 >;
 
-describe("On Answer Created Subscriber", () => {
+describe("On Question Best Answer Chosen", () => {
   beforeEach(() => {
     inMemoryQuestionAttachmentsRepository =
       new InMemoryQuestionAttachmentsRepository();
@@ -48,18 +48,25 @@ describe("On Answer Created Subscriber", () => {
 
     sendNotificationExecuteSpy = vi.spyOn(sendNotificationUseCase, "execute");
 
-    new OnAnswerCreated(inMemoryQuestionsRepository, sendNotificationUseCase);
+    new OnQuestionBestAnswerChosen(
+      inMemoryAnswersRepository,
+      sendNotificationUseCase
+    );
   });
 
-  it("should send a notification when a answer is created", async () => {
+  it("should send a notification when a question has new best answer chosen", async () => {
     const question = makeQuestion();
     const answer = makeAnswer({ questionId: question.id });
 
     inMemoryQuestionsRepository.create(question);
     inMemoryAnswersRepository.create(answer);
 
+    question.bestAnswerId = answer.id;
+
+    inMemoryQuestionsRepository.save(question);
+
     await waitFor(() => {
-        expect(sendNotificationExecuteSpy).toHaveBeenCalled();
+      expect(sendNotificationExecuteSpy).toHaveBeenCalled();
     });
   });
 });
